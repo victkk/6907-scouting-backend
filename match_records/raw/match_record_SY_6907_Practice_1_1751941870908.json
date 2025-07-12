@@ -1,0 +1,390 @@
+{
+  "season": 2025,
+  "eventCode": "SYOF",
+  "tournamentLevel": "Practice",
+  "matchNumber": 1,
+  "teamNo": 6907,
+  "autoStartPosition": "auto 4",
+  "action": [
+    { "type": "start", "timestamp": 0, "defended": false },
+    {
+      "type": "score coral",
+      "timestamp": 1380,
+      "score coral type": "L4",
+      "face": 1,
+      "success": true,
+      "defended": false
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 2639,
+      "intake coral type": "load station B",
+      "defended": false
+    },
+    {
+      "type": "score coral",
+      "timestamp": 6403,
+      "score coral type": "L4",
+      "face": 2,
+      "success": true,
+      "defended": false
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 7419,
+      "intake coral type": "load station B",
+      "defended": false
+    },
+    {
+      "type": "score coral",
+      "timestamp": 10540,
+      "score coral type": "L4",
+      "face": 2,
+      "success": true,
+      "defended": false
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 11948,
+      "intake coral type": "load station B",
+      "defended": false
+    },
+    {
+      "type": "score coral",
+      "timestamp": 14357,
+      "score coral type": "L4",
+      "face": 1,
+      "success": true,
+      "defended": false
+    },
+    {
+      "type": "intake algae",
+      "timestamp": 17852,
+      "intake algae type": "scrape",
+      "defended": false
+    },
+    {
+      "type": "intake algae",
+      "timestamp": 19086,
+      "intake algae type": "reef",
+      "defended": false
+    },
+    {
+      "type": "score algae",
+      "timestamp": 21568,
+      "score algae type": "net",
+      "success": true,
+      "defended": false
+    },
+    {
+      "type": "intake algae",
+      "timestamp": 24818,
+      "intake algae type": "ground",
+      "ground algae source": "back",
+      "defended": false
+    },
+    {
+      "type": "score algae",
+      "timestamp": 27548,
+      "score algae type": "net",
+      "success": true,
+      "defended": false
+    },
+    {
+      "type": "intake algae",
+      "timestamp": 32282,
+      "intake algae type": "ground",
+      "ground algae source": "front",
+      "defended": false
+    },
+    { "type": "defense", "timestamp": 33282, "defended": false },
+    {
+      "type": "score algae",
+      "timestamp": 34853,
+      "score algae type": "net",
+      "success": true,
+      "defended": false
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 39283,
+      "intake coral type": "load station A",
+      "defended": false
+    },
+    {
+      "type": "score coral",
+      "timestamp": 41580,
+      "score coral type": "L4",
+      "face": 5,
+      "success": true,
+      "defended": false
+    },
+    {
+      "type": "intake algae",
+      "timestamp": 44253,
+      "intake algae type": "reef",
+      "defended": false
+    },
+    {
+      "type": "score algae",
+      "timestamp": 45531,
+      "score algae type": "net",
+      "success": true,
+      "defended": false
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 48991,
+      "intake coral type": "ground",
+      "defended": false
+    },
+    {
+      "type": "score coral",
+      "timestamp": 51031,
+      "score coral type": "L3",
+      "face": 5,
+      "success": true,
+      "defended": false
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 52546,
+      "intake coral type": "ground",
+      "defended": false
+    },
+    {
+      "type": "score coral",
+      "timestamp": 53978,
+      "score coral type": "L3",
+      "face": 5,
+      "success": true,
+      "defended": false
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 55467,
+      "intake coral type": "ground",
+      "defended": false
+    },
+    {
+      "type": "score coral",
+      "timestamp": 58745,
+      "score coral type": "L2",
+      "face": 5,
+      "success": true,
+      "defended": false
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 60312,
+      "intake coral type": "ground",
+      "defended": false
+    },
+    {
+      "type": "score coral",
+      "timestamp": 64131,
+      "score coral type": "L2",
+      "face": 5,
+      "success": true,
+      "defended": false
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 66167,
+      "intake coral type": "ground",
+      "defended": false
+    },
+    {
+      "type": "score coral",
+      "timestamp": 67078,
+      "score coral type": "L2",
+      "face": 4,
+      "success": true,
+      "defended": false
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 71977,
+      "intake coral type": "ground",
+      "defended": false
+    },
+    {
+      "type": "score coral",
+      "timestamp": 74110,
+      "score coral type": "L2",
+      "face": 4,
+      "success": true,
+      "defended": false
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 76231,
+      "intake coral type": "ground",
+      "defended": false
+    },
+    {
+      "type": "score coral",
+      "timestamp": 77225,
+      "score coral type": "L2",
+      "face": 4,
+      "success": true,
+      "defended": false
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 81064,
+      "intake coral type": "ground",
+      "defended": false
+    },
+    {
+      "type": "score coral",
+      "timestamp": 84676,
+      "score coral type": "L3",
+      "face": 3,
+      "success": true,
+      "defended": false
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 86613,
+      "intake coral type": "load station B",
+      "defended": false
+    },
+    {
+      "type": "score coral",
+      "timestamp": 88659,
+      "score coral type": "L3",
+      "face": 3,
+      "success": true,
+      "defended": false
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 90279,
+      "intake coral type": "ground",
+      "defended": false
+    },
+    {
+      "type": "score coral",
+      "timestamp": 93699,
+      "score coral type": "L2",
+      "face": 2,
+      "success": true,
+      "defended": false
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 97629,
+      "intake coral type": "ground",
+      "defended": false
+    },
+    {
+      "type": "score coral",
+      "timestamp": 98979,
+      "score coral type": "L1",
+      "face": 2,
+      "success": true,
+      "defended": false
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 102461,
+      "intake coral type": "ground",
+      "defended": false
+    },
+    {
+      "type": "score coral",
+      "timestamp": 104539,
+      "score coral type": "L1",
+      "face": 2,
+      "success": true,
+      "defended": false
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 106838,
+      "intake coral type": "load station B",
+      "defended": false
+    },
+    {
+      "type": "score coral",
+      "timestamp": 109297,
+      "score coral type": "L1",
+      "face": 2,
+      "success": true,
+      "defended": false
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 118605,
+      "intake coral type": "load station B",
+      "defended": false
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 121322,
+      "intake coral type": "ground",
+      "defended": false
+    },
+    {
+      "type": "score coral",
+      "timestamp": 122445,
+      "score coral type": "L1",
+      "face": 3,
+      "success": true,
+      "defended": false
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 125653,
+      "intake coral type": "ground",
+      "defended": false
+    },
+    {
+      "type": "score coral",
+      "timestamp": 128505,
+      "score coral type": "L1",
+      "face": 3,
+      "success": true,
+      "defended": false
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 131225,
+      "intake coral type": "load station B",
+      "defended": false
+    },
+    {
+      "type": "score coral",
+      "timestamp": 133809,
+      "score coral type": "L1",
+      "face": 2,
+      "success": false,
+      "defended": true
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 137439,
+      "intake coral type": "ground",
+      "defended": false
+    },
+    {
+      "type": "score coral",
+      "timestamp": 139957,
+      "score coral type": "L1",
+      "face": 6,
+      "success": true,
+      "defended": false
+    },
+    { "type": "give up", "timestamp": 143116, "defended": false },
+    {
+      "type": "climb up",
+      "timestamp": 143784,
+      "defended": false,
+      "climb result": "success"
+    }
+  ],
+  "isMirrorMode": false,
+  "exportTimestamp": "2025-07-08T10:31:10.907",
+  "exportTimestampUtc": 1751941870908
+}

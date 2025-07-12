@@ -564,3 +564,4 @@ if __name__ == "__main__":
     perform_initial_statistics()
     # 启动Flask应用
     app.run(host="0.0.0.0", port=5000, debug=True)
+    # 开放给公网

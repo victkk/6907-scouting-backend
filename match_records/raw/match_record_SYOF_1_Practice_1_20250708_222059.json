@@ -1,0 +1,109 @@
+{
+  "season": 2025,
+  "eventCode": "SYOF",
+  "tournamentLevel": "Practice",
+  "matchNumber": 1,
+  "teamNo": 1,
+  "autoStartPosition": "auto 1",
+  "action": [
+    {
+      "type": "start",
+      "timestamp": 0
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 880,
+      "intake coral type": "load station A"
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 1317,
+      "intake coral type": "ground"
+    },
+    {
+      "type": "score coral",
+      "timestamp": 2693,
+      "score coral type": "L1",
+      "face": 5,
+      "success": true,
+      "defended": false
+    },
+    {
+      "type": "intake algae",
+      "timestamp": 3341,
+      "intake algae type": "ground",
+      "ground algae source": "middle"
+    },
+    {
+      "type": "score algae",
+      "timestamp": 3975,
+      "score algae type": "shooting",
+      "success": true
+    },
+    {
+      "type": "intake algae",
+      "timestamp": 4706,
+      "intake algae type": "ground",
+      "ground algae source": "middle"
+    },
+    {
+      "type": "score algae",
+      "timestamp": 5136,
+      "score algae type": "net",
+      "success": true
+    },
+    {
+      "type": "intake algae",
+      "timestamp": 5664,
+      "intake algae type": "ground",
+      "ground algae source": "middle"
+    },
+    {
+      "type": "score algae",
+      "timestamp": 6298,
+      "score algae type": "tactical",
+      "success": true
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 6959,
+      "intake coral type": "load station B"
+    },
+    {
+      "type": "score coral",
+      "timestamp": 8382,
+      "score coral type": "L1",
+      "face": 2,
+      "success": false,
+      "defended": true
+    },
+    {
+      "type": "intake algae",
+      "timestamp": 8819,
+      "intake algae type": "ground",
+      "ground algae source": "front"
+    },
+    {
+      "type": "intake algae",
+      "timestamp": 9340,
+      "intake algae type": "reef"
+    },
+    {
+      "type": "intake algae",
+      "timestamp": 9701,
+      "intake algae type": "scrape"
+    },
+    {
+      "type": "score algae",
+      "timestamp": 11667,
+      "score algae type": "net",
+      "defended": false
+    }
+  ],
+  "isMirrorMode": false,
+  "exportTimestamp": "2025-07-08T22:20:58.896",
+  "exportTimestampUtc": 1751984458896,
+  "uploadTimestamp": 1751984458896,
+  "serverReceivedTimestamp": "2025-07-08T22:20:59.477936",
+  "filename": "match_record_SYOF_1_Practice_1_20250708_222059.json"
+}

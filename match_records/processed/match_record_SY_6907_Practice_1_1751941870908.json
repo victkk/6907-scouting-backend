@@ -1,0 +1,184 @@
+{
+  "tournament_level": "Practice",
+  "match_no": 1,
+  "team_no": 6907,
+  "event_code": "SYOF",
+  "score_coral": {
+    "cycle_times": [
+      1.38,
+      5.023,
+      4.137,
+      3.817,
+      6.727,
+      5.5,
+      2.947,
+      4.767,
+      5.386,
+      2.947,
+      7.032,
+      3.115,
+      7.451,
+      3.983,
+      5.04,
+      5.28,
+      5.56,
+      4.758,
+      13.148,
+      6.06,
+      5.304,
+      6.148
+    ],
+    "faces": [
+      1,
+      2,
+      2,
+      1,
+      5,
+      5,
+      5,
+      5,
+      5,
+      4,
+      4,
+      4,
+      3,
+      3,
+      2,
+      2,
+      2,
+      2,
+      3,
+      3,
+      2,
+      6
+    ],
+    "auto_index": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "stack_l1_index": [],
+    "l1_index": [
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21
+    ],
+    "l2_index": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      14
+    ],
+    "l3_index": [
+      5,
+      12,
+      13,
+      6
+    ],
+    "l4_index": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "successful_index": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      21
+    ],
+    "defended_index": [
+      20
+    ]
+  },
+  "intake_coral": {
+    "auto_load_station_cnt": 3,
+    "auto_ground_cnt": 0,
+    "auto_fixed_cnt": 0,
+    "teleop_load_station_cnt": 5,
+    "teleop_ground_cnt": 14,
+    "teleop_fixed_cnt": 0
+  },
+  "score_algae": {
+    "cycle_times": [
+      7.211,
+      5.98,
+      1.571,
+      3.951
+    ],
+    "auto_index": [],
+    "place_net_index": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "shoot_net_index": [],
+    "processor_index": [],
+    "last_sec_processor_index": [],
+    "tactical_index": [],
+    "success_index": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "defended_index": []
+  },
+  "intake_algae": {
+    "auto_ground_front_cnt": 0,
+    "auto_ground_middle_cnt": 0,
+    "auto_ground_back_cnt": 0,
+    "auto_reef_cnt": 0,
+    "auto_scrape_cnt": 0,
+    "teleop_ground_front_cnt": 1,
+    "teleop_ground_middle_cnt": 0,
+    "teleop_ground_back_cnt": 1,
+    "teleop_reef_cnt": 2,
+    "teleop_scrape_cnt": 1
+  },
+  "defense": {
+    "cycle_times": [
+      5.734
+    ]
+  },
+  "foul": {
+    "cnt": 0
+  },
+  "give_up": {
+    "cycle_times": [
+      3.159
+    ]
+  },
+  "climb_up": {
+    "time": 143784,
+    "duration": 0.668,
+    "status": "success"
+  },
+  "leave": true
+}

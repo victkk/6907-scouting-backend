@@ -1,0 +1,26 @@
+{
+  "season": 2025,
+  "eventCode": "SYOF",
+  "tournamentLevel": "Qualification",
+  "matchNumber": 1,
+  "teamNo": 1,
+  "autoStartPosition": "auto 1",
+  "action": [
+    {
+      "type": "start",
+      "timestamp": 0
+    },
+    {
+      "type": "intake algae",
+      "timestamp": 801,
+      "intake algae type": "ground",
+      "ground algae source": "middle"
+    }
+  ],
+  "isMirrorMode": false,
+  "exportTimestamp": "2025-07-08T22:21:23.198",
+  "exportTimestampUtc": 1751984483198,
+  "uploadTimestamp": 1751984483198,
+  "serverReceivedTimestamp": "2025-07-08T22:21:23.544646",
+  "filename": "match_record_SYOF_1_Qualification_1_20250708_222123.json"
+}
