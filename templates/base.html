@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}FRC Scout 数据分析{% endblock %}</title>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="{{ url_for('static', filename='css/style.css') }}"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand" href="{{ url_for('index') }}">
+          <i class="fas fa-robot"></i> FRC Scout 分析
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a
+                class="nav-link {% if request.endpoint == 'index' %}active{% endif %}"
+                href="{{ url_for('index') }}"
+              >
+                <i class="fas fa-balance-scale"></i> 队伍比较
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link {% if request.endpoint == 'ranking' %}active{% endif %}"
+                href="{{ url_for('ranking') }}"
+              >
+                <i class="fas fa-trophy"></i> 排名展示
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid mt-4">
+      <div id="loading" class="text-center" style="display: none">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">加载中...</span>
+        </div>
+        <p class="mt-2">正在加载数据...</p>
+      </div>
+
+      <div
+        id="error-message"
+        class="alert alert-danger"
+        role="alert"
+        style="display: none"
+      >
+        <i class="fas fa-exclamation-triangle"></i>
+        <span class="error-text"></span>
+      </div>
+
+      <div
+        id="success-message"
+        class="alert alert-success"
+        role="alert"
+        style="display: none"
+      >
+        <i class="fas fa-check-circle"></i>
+        <span class="success-text"></span>
+      </div>
+
+      {% block content %}{% endblock %}
+    </div>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/common.js') }}"></script>
+    {% block scripts %}{% endblock %}
+  </body>
+</html>

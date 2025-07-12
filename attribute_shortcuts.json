@@ -1,0 +1,34 @@
+{
+  "核心指标": [
+    "bps_value",
+    "epa_value"
+  ],
+  "自动阶段": [
+    "auto_line_cross_percentage",
+    "auto_preload_coral_percentage",
+    "auto_high_mid_coral_success_rate"
+  ],
+  "爬升相关": [
+    "climb_success_percentage",
+    "climb_success_cycle_time_min",
+    "climb_park_time_median"
+  ],
+  "筒任务": [
+    "l1_teleop_success_percentage",
+    "l2_teleop_success_percentage",
+    "l3_teleop_success_percentage",
+    "l4_teleop_success_percentage"
+  ],
+  "球任务": [
+    "avg_scrape_algae_count",
+    "avg_pickup_algae_count",
+    "net_place_success_rate",
+    "net_shoot_success_rate"
+  ],
+  "时间分配": [
+    "cycle_teleop_coral_time_ratio",
+    "cycle_teleop_algae_time_ratio",
+    "cycle_teleop_defense_time_ratio",
+    "cycle_teleop_give_up_time_ratio"
+  ]
+}

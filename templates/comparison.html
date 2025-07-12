@@ -1,0 +1,282 @@
+{% extends "base.html" %} {% block title %}队伍能力比较 - FRC Scout 数据分析{%
+endblock %} {% block content %}
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">
+          <i class="fas fa-balance-scale"></i> 队伍能力比较
+        </h3>
+      </div>
+      <div class="card-body">
+        <!-- 选择控制面板 -->
+        <div class="row mb-4">
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header">
+                <h5><i class="fas fa-users"></i> 选择队伍</h5>
+              </div>
+              <div class="card-body">
+                <!-- 队伍快捷方式选择 -->
+                <div class="mb-3">
+                  <label class="form-label">队伍快捷方式</label>
+                  <div class="input-group">
+                    <select class="form-select" id="team-shortcuts">
+                      <option value="">选择快捷方式...</option>
+                    </select>
+                    <button
+                      type="button"
+                      class="btn btn-outline-warning"
+                      id="edit-team-shortcut"
+                      title="编辑快捷组"
+                      disabled
+                    >
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-outline-danger"
+                      id="delete-team-shortcut"
+                      title="删除快捷组"
+                      disabled
+                    >
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- 队伍搜索 -->
+                <div class="mb-3">
+                  <label class="form-label">搜索队伍</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="team-search"
+                    placeholder="输入队伍号进行搜索..."
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label">队伍选择</label>
+                  <div
+                    id="team-checkboxes"
+                    class="overflow-auto"
+                    style="
+                      max-height: 300px;
+                      padding: 10px;
+                      border: 1px solid #dee2e6;
+                      border-radius: 0.375rem;
+                    "
+                  >
+                    <!-- 队伍复选框将在这里动态生成 -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header">
+                <h5><i class="fas fa-filter"></i> 数据过滤</h5>
+              </div>
+              <div class="card-body">
+                <!-- 比赛等级选择 -->
+                <div class="mb-3">
+                  <label class="form-label">比赛等级</label>
+                  <div id="tournament-level-checkboxes">
+                    <!-- 比赛等级复选框将在这里动态生成 -->
+                  </div>
+                </div>
+
+                <!-- 比赛场次过滤 -->
+                <div class="mb-3">
+                  <label class="form-label" for="match-filter"
+                    >比赛场次过滤</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="match-filter"
+                    placeholder="例如: 1-7,9-11,15"
+                    title="支持范围和单独场次，用逗号分隔"
+                  />
+                  <div class="form-text">
+                    支持格式：1-7,9-11,15 （范围用连字符，多个用逗号分隔）
+                  </div>
+                </div>
+
+                <!-- 操作按钮 -->
+                <div class="d-flex gap-2">
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    id="refresh-data"
+                  >
+                    <i class="fas fa-sync"></i> 刷新数据
+                  </button>
+
+                  <button
+                    type="button"
+                    class="btn btn-success"
+                    id="create-shortcut"
+                  >
+                    <i class="fas fa-plus"></i> 创建快捷组
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 比较结果表格 -->
+        <div class="table-responsive">
+          <table class="table table-striped table-hover" id="comparison-table">
+            <thead class="table-dark">
+              <tr id="table-header">
+                <th>统计项</th>
+                <!-- 队伍列将在这里动态生成 -->
+              </tr>
+            </thead>
+            <tbody id="table-body">
+              <!-- 数据行将在这里动态生成 -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 创建快捷组模态框 -->
+<div
+  class="modal fade"
+  id="createShortcutModal"
+  tabindex="-1"
+  aria-labelledby="createShortcutModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="createShortcutModalLabel">创建快捷组</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form id="shortcut-form">
+          <div class="mb-3">
+            <label for="shortcut-name" class="form-label">快捷组名称</label>
+            <input
+              type="text"
+              class="form-control"
+              id="shortcut-name"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">快捷组类型</label>
+            <div>
+              <input
+                type="radio"
+                class="form-check-input"
+                id="shortcut-type-team"
+                name="shortcut-type"
+                value="team"
+                checked
+              />
+              <label class="form-check-label" for="shortcut-type-team"
+                >队伍快捷组</label
+              >
+            </div>
+          </div>
+          <div class="mb-3" id="shortcut-items-container">
+            <!-- 动态内容将在这里生成 -->
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          取消
+        </button>
+        <button type="button" class="btn btn-primary" id="save-shortcut">
+          保存快捷组
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 编辑快捷组模态框 -->
+<div
+  class="modal fade"
+  id="editShortcutModal"
+  tabindex="-1"
+  aria-labelledby="editShortcutModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editShortcutModalLabel">编辑快捷组</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form id="edit-shortcut-form">
+          <div class="mb-3">
+            <label for="edit-shortcut-name" class="form-label"
+              >快捷组名称</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="edit-shortcut-name"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">快捷组类型</label>
+            <div>
+              <input
+                type="radio"
+                class="form-check-input"
+                id="edit-shortcut-type-team"
+                name="edit-shortcut-type"
+                value="team"
+                disabled
+                checked
+              />
+              <label class="form-check-label" for="edit-shortcut-type-team"
+                >队伍快捷组</label
+              >
+            </div>
+          </div>
+          <div class="mb-3" id="edit-shortcut-items-container">
+            <!-- 动态内容将在这里生成 -->
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          取消
+        </button>
+        <button type="button" class="btn btn-primary" id="update-shortcut">
+          保存修改
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %} {% block scripts %}
+<script src="{{ url_for('static', filename='js/comparison.js') }}"></script>
+{% endblock %}
