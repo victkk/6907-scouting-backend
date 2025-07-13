@@ -300,7 +300,9 @@ def get_team_statistics():
         # 过滤掉不需要的队伍
         if teams:
             team_statistics = [
-                team_stat for team_stat in team_statistics if team_stat.team_no in teams
+                team_stat
+                for team_stat in team_statistics
+                if str(team_stat.team_no) in teams
             ]
         # 转换为字典格式
         result = []
