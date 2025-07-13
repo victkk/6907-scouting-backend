@@ -288,9 +288,6 @@ def get_team_statistics():
                 and match_stat.tournament_level not in tournament_levels
             ):
                 return True
-            # 过滤掉不需要的队伍
-            if teams and str(match_stat.team_no) not in teams:
-                return True
             # 过滤掉不需要的比赛场次
             if match_nos and str(match_stat.match_no) not in match_nos:
                 return True
@@ -300,7 +297,11 @@ def get_team_statistics():
         team_statistics = create_team_statistics_from_matches(
             match_stats, filter_matches
         )
-
+        # 过滤掉不需要的队伍
+        if teams:
+            team_statistics = [
+                team_stat for team_stat in team_statistics if team_stat.team_no in teams
+            ]
         # 转换为字典格式
         result = []
         for team_stat in team_statistics:
