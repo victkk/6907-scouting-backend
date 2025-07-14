@@ -17,6 +17,8 @@ import os
 class MatchStatistics:
     """完整比赛的周期统计数据"""
 
+    file_name: str = ""
+    timestamp: int = 0
     tournament_level: str = ""
     match_no: int = 0
     team_no: int = 0
@@ -74,8 +76,12 @@ class MatchStatistics:
         """从JSON文件恢复数据"""
         with open(filepath, "r", encoding="utf-8") as f:
             data = json.load(f)
-
-        return cls._from_dict(data)
+        match_statistics = cls._from_dict(data)
+        match_statistics.timestamp = (
+            os.path.splitext(os.path.basename(filepath))[0]
+        ).split("_")[-1]
+        match_statistics.file_name = os.path.basename(filepath)
+        return match_statistics
 
     @classmethod
     def _from_dict(cls, data: Dict[str, Any]) -> "MatchStatistics":
@@ -349,3 +355,10 @@ class ClimbUpStatistics:
     time: float = 0.0
     duration: float = 0.0
     status: str = ""
+
+
+if __name__ == "__main__":
+    match_statistics = MatchStatistics.from_json_file(
+        "backend/match_records/processed/match_record_SY_2910_Playoff_2_1751982952463.json"
+    )
+    print(match_statistics.timestamp)

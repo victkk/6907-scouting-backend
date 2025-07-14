@@ -7,6 +7,8 @@ from apscheduler.schedulers.background import BackgroundScheduler
 import logging
 from werkzeug.exceptions import BadRequest
 import uuid
+import shutil
+import re
 from backend.service.analyze_single_file import calculate_single_match_record_statistics
 from backend.schema.match_statistics_schema import MatchStatistics
 from backend.service.aggregate_team_statistics import (
@@ -14,6 +16,7 @@ from backend.service.aggregate_team_statistics import (
 )
 from backend.schema.team_statistics_schema import TeamStatistics
 from dataclasses import fields
+from backend.utils import *
 
 app = Flask(__name__)
 CORS(app)  # 启用跨域支持
@@ -21,20 +24,6 @@ CORS(app)  # 启用跨域支持
 # 配置日志
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
-# 配置文件路径
-RAW_DATA_DIR = os.path.join(os.path.dirname(__file__), "match_records", "raw")
-PROCESSED_DATA_DIR = os.path.join(
-    os.path.dirname(__file__), "match_records", "processed"
-)
-TEAM_SHORTCUTS_FILE = os.path.join(os.path.dirname(__file__), "team_shortcuts.json")
-ATTRIBUTE_SHORTCUTS_FILE = os.path.join(
-    os.path.dirname(__file__), "attribute_shortcuts.json"
-)
-
-# 确保目录存在
-os.makedirs(RAW_DATA_DIR, exist_ok=True)
-os.makedirs(PROCESSED_DATA_DIR, exist_ok=True)
 
 
 def perform_initial_statistics():
@@ -88,7 +77,7 @@ def upload_match_record():
             )
 
         # 生成文件名
-        timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+        timestamp = int(datetime.datetime.now().timestamp() * 1000)
         team_no = data.get("teamNo")
         match_no = data.get("matchNumber")
         event_code = data.get("eventCode")
@@ -558,6 +547,114 @@ def get_rankings():
     except Exception as e:
         logger.error(f"获取排名数据时出错: {str(e)}")
         return jsonify({"success": False, "message": f"服务器错误: {str(e)}"}), 500
+
+
+@app.route("/file-manager")
+def file_manager():
+    """文件管理页面"""
+    return render_template("file_manager.html")
+
+
+@app.route("/api/files", methods=["GET"])
+def get_files():
+    """获取文件列表API"""
+    try:
+        include_trash = request.args.get("include_trash", "false").lower() == "true"
+        files = get_file_list(include_trash)
+        return jsonify({"success": True, "files": files, "total": len(files)})
+    except Exception as e:
+        logger.error(f"获取文件列表失败: {str(e)}")
+        return (
+            jsonify({"success": False, "message": f"获取文件列表失败: {str(e)}"}),
+            500,
+        )
+
+
+@app.route("/api/files/move-to-trash", methods=["POST"])
+def move_to_trash():
+    """移动文件到回收站API"""
+    try:
+        data = request.get_json()
+        filenames = data.get("filenames", [])
+
+        if not filenames:
+            return jsonify({"success": False, "message": "请选择要移动的文件"}), 400
+
+        success_count, errors = move_files_to_trash(filenames)
+
+        return jsonify(
+            {
+                "success": True,
+                "message": f"成功移动 {success_count} 个文件到回收站",
+                "success_count": success_count,
+                "errors": errors,
+            }
+        )
+
+    except Exception as e:
+        logger.error(f"移动文件到回收站失败: {str(e)}")
+        return (
+            jsonify({"success": False, "message": f"移动文件到回收站失败: {str(e)}"}),
+            500,
+        )
+
+
+@app.route("/api/files/restore", methods=["POST"])
+def restore_from_trash():
+    """从回收站恢复文件API"""
+    try:
+        data = request.get_json()
+        filenames = data.get("filenames", [])
+
+        if not filenames:
+            return jsonify({"success": False, "message": "请选择要恢复的文件"}), 400
+
+        success_count, errors = restore_files_from_trash(filenames)
+
+        return jsonify(
+            {
+                "success": True,
+                "message": f"成功恢复 {success_count} 个文件",
+                "success_count": success_count,
+                "errors": errors,
+            }
+        )
+
+    except Exception as e:
+        logger.error(f"从回收站恢复文件失败: {str(e)}")
+        return (
+            jsonify({"success": False, "message": f"从回收站恢复文件失败: {str(e)}"}),
+            500,
+        )
+
+
+@app.route("/api/files/delete", methods=["POST"])
+def permanently_delete():
+    """永久删除文件API"""
+    try:
+        data = request.get_json()
+        filenames = data.get("filenames", [])
+
+        if not filenames:
+            return jsonify({"success": False, "message": "请选择要删除的文件"}), 400
+
+        success_count, errors = permanently_delete_files(filenames)
+
+        return jsonify(
+            {
+                "success": True,
+                "message": f"成功永久删除 {success_count} 个文件",
+                "success_count": success_count,
+                "errors": errors,
+            }
+        )
+
+    except Exception as e:
+        logger.error(f"永久删除文件失败: {str(e)}")
+        return (
+            jsonify({"success": False, "message": f"永久删除文件失败: {str(e)}"}),
+            500,
+        )
 
 
 if __name__ == "__main__":

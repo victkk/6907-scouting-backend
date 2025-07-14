@@ -35,6 +35,7 @@ def create_team_statistics_from_matches(
     for match_stat in match_stats:
         if filter_func and filter_func(match_stat):
             continue
+
         teams_matches[match_stat.team_no].append(match_stat)
 
     # 为每个队伍创建统计数据
