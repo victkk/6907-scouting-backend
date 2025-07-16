@@ -822,14 +822,17 @@ def _calculate_manual_algae_statistics(
     )
 
 
+
 def _calculate_defense_resistance_statistics(
-    team_stat: TeamStatistics, matches: List[MatchStatistics]
+    team_stat: "TeamStatistics", matches: List["MatchStatistics"]
 ) -> None:
-    """计算防守抗性统计数据"""
+    """计算防守抗性统计数据（已修复）"""
     total_successful_coral_cycles = 0
     defended_coral_cycles = 0
     undefended_coral_cycles = 0
-    defended_cycle_times = []
+    
+    # 更改：列表将存储 (时间, 比赛) 元组
+    defended_cycle_times_with_match = [] 
     undefended_cycle_times = []
     defended_counts_by_match = []
 
@@ -846,14 +849,14 @@ def _calculate_defense_resistance_statistics(
         total_successful_coral_cycles += len(teleop_success_indices)
         defended_coral_cycles += len(teleop_defended_indices)
         undefended_coral_cycles += len(teleop_undefended_indices)
-        # 记录被防守的成功cycle数量
         defended_count = len(teleop_defended_indices)
 
         defended_counts_by_match.append(defended_count)
 
-        # 收集cycle时间
+        # 修复：收集cycle时间时，附带比赛信息
         for idx in teleop_defended_indices & match.score_coral.successful_index:
-            defended_cycle_times.append(match.score_coral.cycle_times[idx])
+            cycle_time = match.score_coral.cycle_times[idx]
+            defended_cycle_times_with_match.append((cycle_time, match))
 
         for idx in teleop_undefended_indices & match.score_coral.successful_index:
             undefended_cycle_times.append(match.score_coral.cycle_times[idx])
@@ -866,30 +869,30 @@ def _calculate_defense_resistance_statistics(
     else:
         team_stat.coral_defended_percentage.value = 0.0
 
-    # 计算单场最大被防守数
+    # 计算单场最大被防守数 (这部分逻辑原本就是正确的)
     if defended_counts_by_match:
-        team_stat.coral_defended_max_single_match.value = max(defended_counts_by_match)
-        team_stat.coral_defended_max_single_match.match_no = matches[
-            defended_counts_by_match.index(max(defended_counts_by_match))
-        ].match_no
-        team_stat.coral_defended_max_single_match.tournament_level = matches[
-            defended_counts_by_match.index(max(defended_counts_by_match))
-        ].tournament_level
+        max_defended_count = max(defended_counts_by_match)
+        max_index = defended_counts_by_match.index(max_defended_count)
+        team_stat.coral_defended_max_single_match.value = max_defended_count
+        team_stat.coral_defended_max_single_match.match_no = matches[max_index].match_no
+        team_stat.coral_defended_max_single_match.tournament_level = matches[max_index].tournament_level
     else:
         team_stat.coral_defended_max_single_match.value = 0.0
 
-    if defended_cycle_times:
-        team_stat.defended_success_coral_cycle_time_max.value = max(
-            defended_cycle_times
-        )
-        team_stat.defended_success_coral_cycle_time_max.match_no = matches[
-            defended_cycle_times.index(max(defended_cycle_times))
-        ].match_no
-        team_stat.defended_success_coral_cycle_time_max.tournament_level = matches[
-            defended_cycle_times.index(max(defended_cycle_times))
-        ].tournament_level
+    # 修复：计算被防守时的最大和中位数周期时间
+    if defended_cycle_times_with_match:
+        # 使用 key 参数在元组列表中找到最大值
+        max_time_tuple = max(defended_cycle_times_with_match, key=lambda item: item[0])
+        match_with_max_time = max_time_tuple[1]
+        
+        team_stat.defended_success_coral_cycle_time_max.value = max_time_tuple[0]
+        team_stat.defended_success_coral_cycle_time_max.match_no = match_with_max_time.match_no
+        team_stat.defended_success_coral_cycle_time_max.tournament_level = match_with_max_time.tournament_level
+        
+        # 为了计算中位数，先提取所有时间值
+        defended_times = [item[0] for item in defended_cycle_times_with_match]
         team_stat.defended_success_coral_cycle_time_median.value = statistics.median(
-            defended_cycle_times
+            defended_times
         )
     else:
         team_stat.defended_success_coral_cycle_time_max.value = 0.0
@@ -902,10 +905,13 @@ def _calculate_defense_resistance_statistics(
     else:
         team_stat.undefended_success_coral_cycle_time_median.value = 0.0
 
-    # 计算被防守vs无防守的时间增加百分比
-    if defended_cycle_times and undefended_cycle_times:
-        defended_median = statistics.median(defended_cycle_times)
+    # 修复：计算被防守vs无防守的时间增加百分比
+    if defended_cycle_times_with_match and undefended_cycle_times:
+        # 同样，先提取时间值再计算中位数
+        defended_times = [item[0] for item in defended_cycle_times_with_match]
+        defended_median = statistics.median(defended_times)
         undefended_median = statistics.median(undefended_cycle_times)
+        
         if undefended_median > 0:
             increase_percentage = (
                 defended_median - undefended_median
@@ -914,13 +920,9 @@ def _calculate_defense_resistance_statistics(
                 increase_percentage * 100
             )
         else:
-            team_stat.defended_vs_undefended_success_coral_cycle_time_increase_percentage.value = (
-                0.0
-            )
+            team_stat.defended_vs_undefended_success_coral_cycle_time_increase_percentage.value = 0.0
     else:
-        team_stat.defended_vs_undefended_success_coral_cycle_time_increase_percentage.value = (
-            0.0
-        )
+        team_stat.defended_vs_undefended_success_coral_cycle_time_increase_percentage.value = 0.0
 
 
 def _calculate_all_rankings(team_statistics: List[TeamStatistics]) -> None:
