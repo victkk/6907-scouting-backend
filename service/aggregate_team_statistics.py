@@ -471,8 +471,11 @@ def _calculate_manual_coral_statistics(
     stack_l1_attempt_counts = []
     match_nos = []
     tournament_levels = []
-
+    coral_source_ground_cnt = 0
+    coral_source_loading_station_cnt = 0
     for match in matches:
+        coral_source_ground_cnt += match.intake_coral.teleop_ground_cnt
+        coral_source_loading_station_cnt += match.intake_coral.teleop_load_station_cnt
         l1_success_counts.append(
             len(
                 match.score_coral.successful_index
@@ -699,7 +702,8 @@ def _calculate_manual_coral_statistics(
         if statistics.mean(all_attempt_counts) > 0
         else 0
     )
-
+    team_stat.coral_source_ground_percentage = coral_source_ground_cnt/(coral_source_loading_station_cnt+coral_source_ground_cnt) if (coral_source_loading_station_cnt+coral_source_ground_cnt) else 0
+    team_stat.coral_source_station_percentage = coral_source_loading_station_cnt/(coral_source_loading_station_cnt+coral_source_ground_cnt) if (coral_source_loading_station_cnt+coral_source_ground_cnt) else 0
 
 def _calculate_manual_algae_statistics(
     team_stat: TeamStatistics, matches: List[MatchStatistics]
