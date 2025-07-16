@@ -164,7 +164,7 @@ def _calculate_climb_statistics(
     if total_attempts > 0:
         team_stat.climb_success_percentage.value = (
             len(success_match_nos) / total_attempts
-        ) * 100
+        ) 
     else:
         team_stat.climb_success_percentage.value = 0.0
 
@@ -869,7 +869,7 @@ def _calculate_defense_resistance_statistics(
     if total_successful_coral_cycles > 0:
         team_stat.coral_defended_percentage.value = (
             defended_coral_cycles / (defended_coral_cycles + undefended_coral_cycles)
-        ) * 100
+        )
     else:
         team_stat.coral_defended_percentage.value = 0.0
 
@@ -921,7 +921,7 @@ def _calculate_defense_resistance_statistics(
                 defended_median - undefended_median
             ) / undefended_median
             team_stat.defended_vs_undefended_success_coral_cycle_time_increase_percentage.value = (
-                increase_percentage * 100
+                increase_percentage 
             )
         else:
             team_stat.defended_vs_undefended_success_coral_cycle_time_increase_percentage.value = 0.0
