@@ -483,8 +483,17 @@ def calculate_rank_data(
     # 排序
     team_values.sort(key=lambda x: x[1], reverse=descending)
 
-    # 分配排名
-    for rank, (team, value) in enumerate(team_values, 1):
+    # 分配排名 - 相同值获得相同排名
+    current_rank = 1
+    current_value = None
+
+    for i, (team, value) in enumerate(team_values):
+        # 如果当前值与上一个值不同，更新排名
+        if current_value is not None and value != current_value:
+            current_rank = i + 1
+
         field_obj = getattr(team, field_name)
         if isinstance(field_obj, (RankValue, RankValueMatch)):
-            field_obj.rank = rank
+            field_obj.rank = current_rank
+
+        current_value = value
