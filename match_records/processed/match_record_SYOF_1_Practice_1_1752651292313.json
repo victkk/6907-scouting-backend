@@ -1,0 +1,130 @@
+{
+  "file_name": "",
+  "timestamp": 0,
+  "tournament_level": "Practice",
+  "match_no": 1,
+  "team_no": 1,
+  "event_code": "SYOF",
+  "score_coral": {
+    "cycle_times": [
+      10.552,
+      1.435,
+      9.091,
+      9.292,
+      23.587,
+      10.276,
+      10.575,
+      5.088,
+      10.86,
+      8.741,
+      5.729,
+      9.223,
+      8.972,
+      11.363,
+      10.768
+    ],
+    "faces": [
+      1,
+      2,
+      6,
+      6,
+      1,
+      1,
+      3,
+      3,
+      2,
+      2,
+      1,
+      1,
+      1,
+      1,
+      2
+    ],
+    "auto_index": [
+      0
+    ],
+    "stack_l1_index": [],
+    "l1_index": [],
+    "l2_index": [
+      8,
+      14
+    ],
+    "l3_index": [
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "l4_index": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "successful_index": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      6,
+      8,
+      9,
+      11,
+      13,
+      14
+    ],
+    "defended_index": []
+  },
+  "intake_coral": {
+    "auto_load_station_cnt": 1,
+    "auto_ground_cnt": 0,
+    "auto_fixed_cnt": 0,
+    "teleop_load_station_cnt": 13,
+    "teleop_ground_cnt": 0,
+    "teleop_fixed_cnt": 0
+  },
+  "score_algae": {
+    "cycle_times": [],
+    "auto_index": [],
+    "place_net_index": [],
+    "shoot_net_index": [],
+    "processor_index": [],
+    "last_sec_processor_index": [],
+    "tactical_index": [],
+    "success_index": [],
+    "defended_index": []
+  },
+  "intake_algae": {
+    "auto_ground_front_cnt": 0,
+    "auto_ground_middle_cnt": 0,
+    "auto_ground_back_cnt": 0,
+    "auto_reef_cnt": 0,
+    "auto_scrape_cnt": 0,
+    "teleop_ground_front_cnt": 0,
+    "teleop_ground_middle_cnt": 0,
+    "teleop_ground_back_cnt": 0,
+    "teleop_reef_cnt": 0,
+    "teleop_scrape_cnt": 2
+  },
+  "defense": {
+    "cycle_times": []
+  },
+  "foul": {
+    "cnt": 0
+  },
+  "give_up": {
+    "cycle_times": []
+  },
+  "climb_up": {
+    "time": 0.0,
+    "duration": 0.0,
+    "status": ""
+  },
+  "leave": true
+}

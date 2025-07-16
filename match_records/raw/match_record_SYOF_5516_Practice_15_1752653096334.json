@@ -1,0 +1,195 @@
+{
+  "season": 2025,
+  "eventCode": "SYOF",
+  "tournamentLevel": "Practice",
+  "matchNumber": 15,
+  "teamNo": 5516,
+  "autoStartPosition": "auto 2",
+  "action": [
+    {
+      "type": "start",
+      "timestamp": 0
+    },
+    {
+      "type": "score coral",
+      "timestamp": 4670,
+      "score coral type": "L4",
+      "face": 5,
+      "success": true,
+      "defended": false
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 6372,
+      "intake coral type": "load station A"
+    },
+    {
+      "type": "score coral",
+      "timestamp": 15000,
+      "score coral type": "L4",
+      "face": 4,
+      "success": true,
+      "defended": false
+    },
+    {
+      "type": "teleop start",
+      "timestamp": 15000
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 16668,
+      "intake coral type": "load station A"
+    },
+    {
+      "type": "score coral",
+      "timestamp": 21390,
+      "score coral type": "L4",
+      "face": 4,
+      "success": true,
+      "defended": false
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 22040,
+      "intake coral type": "load station A"
+    },
+    {
+      "type": "score coral",
+      "timestamp": 32033,
+      "score coral type": "L4",
+      "face": 5,
+      "success": true,
+      "defended": false
+    },
+    {
+      "type": "intake algae",
+      "timestamp": 37121,
+      "intake algae type": "scrape"
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 46447,
+      "intake coral type": "ground"
+    },
+    {
+      "type": "intake algae",
+      "timestamp": 48498,
+      "intake algae type": "ground",
+      "ground algae source": "back"
+    },
+    {
+      "type": "score algae",
+      "timestamp": 49015,
+      "score algae type": "processor",
+      "success": true
+    },
+    {
+      "type": "intake algae",
+      "timestamp": 58024,
+      "intake algae type": "reef"
+    },
+    {
+      "type": "score algae",
+      "timestamp": 60794,
+      "score algae type": "processor",
+      "success": true
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 66451,
+      "intake coral type": "load station A"
+    },
+    {
+      "type": "score coral",
+      "timestamp": 72923,
+      "score coral type": "L4",
+      "face": 6,
+      "success": true,
+      "defended": false
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 77711,
+      "intake coral type": "load station A"
+    },
+    {
+      "type": "score coral",
+      "timestamp": 83500,
+      "score coral type": "L4",
+      "face": 6,
+      "success": true,
+      "defended": false
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 89005,
+      "intake coral type": "load station A"
+    },
+    {
+      "type": "score coral",
+      "timestamp": 96794,
+      "score coral type": "L4",
+      "face": 1,
+      "success": true,
+      "defended": false
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 103132,
+      "intake coral type": "load station A"
+    },
+    {
+      "type": "score coral",
+      "timestamp": 116526,
+      "score coral type": "L4",
+      "face": 1,
+      "success": true,
+      "defended": false
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 123598,
+      "intake coral type": "load station A"
+    },
+    {
+      "type": "score coral",
+      "timestamp": 134559,
+      "score coral type": "L4",
+      "face": 2,
+      "success": true,
+      "defended": false
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 137050,
+      "intake coral type": "load station B"
+    },
+    {
+      "type": "score coral",
+      "timestamp": 143553,
+      "score coral type": "L4",
+      "face": 2,
+      "success": true,
+      "defended": false
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 144621,
+      "intake coral type": "load station B"
+    },
+    {
+      "type": "score coral",
+      "timestamp": 150000,
+      "score coral type": "L4",
+      "face": 3,
+      "success": true,
+      "defended": false
+    }
+  ],
+  "isMirrorMode": false,
+  "exportTimestamp": "2025-07-16T16:04:55.986",
+  "exportTimestampUtc": 1752653095986,
+  "uploadTimestamp": 1752653095986,
+  "serverReceivedTimestamp": "2025-07-16T16:04:56.334131",
+  "filename": "match_record_SYOF_5516_Practice_15_1752653096334.json"
+}

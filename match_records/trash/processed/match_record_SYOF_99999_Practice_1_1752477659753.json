@@ -1,0 +1,95 @@
+{
+  "file_name": "",
+  "timestamp": 0,
+  "tournament_level": "Practice",
+  "match_no": 1,
+  "team_no": 99999,
+  "event_code": "SYOF",
+  "score_coral": {
+    "cycle_times": [
+      1.567,
+      1.576,
+      1.729
+    ],
+    "faces": [
+      4,
+      3,
+      2
+    ],
+    "auto_index": [
+      0,
+      1,
+      2
+    ],
+    "stack_l1_index": [],
+    "l1_index": [],
+    "l2_index": [],
+    "l3_index": [
+      0,
+      1
+    ],
+    "l4_index": [
+      2
+    ],
+    "successful_index": [
+      0,
+      1,
+      2
+    ],
+    "defended_index": []
+  },
+  "intake_coral": {
+    "auto_load_station_cnt": 3,
+    "auto_ground_cnt": 1,
+    "auto_fixed_cnt": 0,
+    "teleop_load_station_cnt": 0,
+    "teleop_ground_cnt": 0,
+    "teleop_fixed_cnt": 0
+  },
+  "score_algae": {
+    "cycle_times": [
+      2.599
+    ],
+    "auto_index": [
+      0
+    ],
+    "place_net_index": [
+      0
+    ],
+    "shoot_net_index": [],
+    "processor_index": [],
+    "last_sec_processor_index": [],
+    "tactical_index": [],
+    "success_index": [
+      0
+    ],
+    "defended_index": []
+  },
+  "intake_algae": {
+    "auto_ground_front_cnt": 0,
+    "auto_ground_middle_cnt": 0,
+    "auto_ground_back_cnt": 1,
+    "auto_reef_cnt": 0,
+    "auto_scrape_cnt": 0,
+    "teleop_ground_front_cnt": 0,
+    "teleop_ground_middle_cnt": 0,
+    "teleop_ground_back_cnt": 0,
+    "teleop_reef_cnt": 0,
+    "teleop_scrape_cnt": 0
+  },
+  "defense": {
+    "cycle_times": []
+  },
+  "foul": {
+    "cnt": 0
+  },
+  "give_up": {
+    "cycle_times": []
+  },
+  "climb_up": {
+    "time": 0.0,
+    "duration": 0.0,
+    "status": ""
+  },
+  "leave": true
+}

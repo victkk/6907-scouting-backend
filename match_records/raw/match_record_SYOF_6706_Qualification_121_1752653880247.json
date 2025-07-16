@@ -1,0 +1,240 @@
+{
+  "season": 2025,
+  "eventCode": "SYOF",
+  "tournamentLevel": "Qualification",
+  "matchNumber": 121,
+  "teamNo": 6706,
+  "autoStartPosition": "auto 4",
+  "action": [
+    {
+      "type": "start",
+      "timestamp": 0
+    },
+    {
+      "type": "score coral",
+      "timestamp": 3795,
+      "score coral type": "L4",
+      "face": 1,
+      "success": true,
+      "defended": false
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 5817,
+      "intake coral type": "load station B"
+    },
+    {
+      "type": "score coral",
+      "timestamp": 9091,
+      "score coral type": "L4",
+      "face": 2,
+      "success": true,
+      "defended": false
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 10853,
+      "intake coral type": "load station B"
+    },
+    {
+      "type": "score coral",
+      "timestamp": 14505,
+      "score coral type": "L4",
+      "face": 2,
+      "success": true,
+      "defended": false
+    },
+    {
+      "type": "teleop start",
+      "timestamp": 15001
+    },
+    {
+      "type": "intake algae",
+      "timestamp": 16643,
+      "intake algae type": "scrape"
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 21346,
+      "intake coral type": "load station B"
+    },
+    {
+      "type": "score coral",
+      "timestamp": 34127,
+      "score coral type": "L3",
+      "face": 2,
+      "success": true,
+      "defended": true
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 34933,
+      "intake coral type": "load station B"
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 43886,
+      "intake coral type": "load station B"
+    },
+    {
+      "type": "score coral",
+      "timestamp": 47167,
+      "score coral type": "L4",
+      "face": 1,
+      "success": true,
+      "defended": false
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 51617,
+      "intake coral type": "load station B"
+    },
+    {
+      "type": "score coral",
+      "timestamp": 57343,
+      "score coral type": "L3",
+      "face": 2,
+      "success": true,
+      "defended": false
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 58191,
+      "intake coral type": "load station B"
+    },
+    {
+      "type": "score coral",
+      "timestamp": 59881,
+      "score coral type": "L4",
+      "face": 6,
+      "success": true,
+      "defended": false
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 67269,
+      "intake coral type": "load station B"
+    },
+    {
+      "type": "score coral",
+      "timestamp": 74962,
+      "score coral type": "L2",
+      "face": 2,
+      "success": true,
+      "defended": true
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 76884,
+      "intake coral type": "load station B"
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 89065,
+      "intake coral type": "load station B"
+    },
+    {
+      "type": "score coral",
+      "timestamp": 94136,
+      "score coral type": "L2",
+      "face": 2,
+      "success": true,
+      "defended": false
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 95608,
+      "intake coral type": "load station B"
+    },
+    {
+      "type": "score coral",
+      "timestamp": 100758,
+      "score coral type": "L2",
+      "face": 1,
+      "success": true,
+      "defended": false
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 101990,
+      "intake coral type": "load station B"
+    },
+    {
+      "type": "score coral",
+      "timestamp": 110279,
+      "score coral type": "L2",
+      "face": 1,
+      "success": true,
+      "defended": false
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 116481,
+      "intake coral type": "load station B"
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 118323,
+      "intake coral type": "load station A"
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 120803,
+      "intake coral type": "load station B"
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 121224,
+      "intake coral type": "load station B"
+    },
+    {
+      "type": "score coral",
+      "timestamp": 126786,
+      "score coral type": "L3",
+      "face": 1,
+      "success": true,
+      "defended": false
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 129722,
+      "intake coral type": "load station B"
+    },
+    {
+      "type": "score coral",
+      "timestamp": 134779,
+      "score coral type": "L1",
+      "face": 1,
+      "success": true,
+      "defended": false
+    },
+    {
+      "type": "intake coral",
+      "timestamp": 140540,
+      "intake coral type": "load station B"
+    },
+    {
+      "type": "score coral",
+      "timestamp": 143979,
+      "score coral type": "L2",
+      "face": 6,
+      "success": true,
+      "defended": true
+    },
+    {
+      "type": "give up",
+      "timestamp": 149484
+    },
+    {
+      "type": "climb up",
+      "timestamp": 150000,
+      "climb result": "success"
+    }
+  ],
+  "isMirrorMode": false,
+  "exportTimestamp": "2025-07-16T16:17:58.685",
+  "exportTimestampUtc": 1752653878685,
+  "uploadTimestamp": 1752653878685,
+  "serverReceivedTimestamp": "2025-07-16T16:18:00.247811",
+  "filename": "match_record_SYOF_6706_Qualification_121_1752653880247.json"
+}

@@ -30,5 +30,11 @@
     "cycle_teleop_algae_time_ratio",
     "cycle_teleop_defense_time_ratio",
     "cycle_teleop_give_up_time_ratio"
+  ],
+  "球": [
+    "algae_source_back_percentage",
+    "algae_source_front_percentage",
+    "algae_source_mid_percentage",
+    "algae_source_reef_percentage"
   ]
 }
