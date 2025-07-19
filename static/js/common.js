@@ -327,6 +327,75 @@ function getRankClass(rank) {
     return '';
 }
 
+// 属性显示顺序（按照team_statistics_attributes.csv中的顺序）
+const ATTRIBUTE_ORDER = [
+    'team_no',
+    'cycle_teleop_coral_time_ratio',
+    'cycle_teleop_algae_time_ratio',
+    'cycle_teleop_defense_time_ratio',
+    'cycle_teleop_give_up_time_ratio',
+    'climb_success_matches',
+    'climb_fail_matches',
+    'climb_touch_chain_matches',
+    'climb_success_percentage',
+    'climb_success_cycle_time_min',
+    'climb_park_time_median',
+    'processor_success_max_single_match',
+    'bps_value',
+    'epa_value',
+    'ppg_avg',
+    'ppg_max_single_match',
+    'auto_line_cross_percentage',
+    'auto_preload_coral_percentage',
+    'auto_high_mid_coral_max',
+    'auto_high_mid_coral_success_rate',
+    'auto_low_slot_coral_max',
+    'auto_low_slot_coral_success_rate',
+    'auto_net_place_max',
+    'auto_algae_process_max',
+    'coral_source_station_percentage',
+    'coral_source_ground_percentage',
+    'l1_teleop_success_count_avg',
+    'l1_teleop_success_percentage',
+    'l2_teleop_success_count_avg',
+    'l2_teleop_success_percentage',
+    'l3_teleop_success_count_avg',
+    'l3_teleop_success_percentage',
+    'l4_teleop_success_count_avg',
+    'l4_teleop_success_percentage',
+    'stack_l1_teleop_success_count_avg',
+    'stack_l1_teleop_success_percentage',
+    'l1_teleop_undefended_success_cycle_time_median',
+    'l2_teleop_undefended_success_cycle_time_median',
+    'l3_teleop_undefended_success_cycle_time_median',
+    'l4_teleop_undefended_success_cycle_time_median',
+    'stack_l1_teleop_undefended_success_cycle_time_median',
+    'total_teleop_success_count_avg',
+    'total_teleop_success_percentage',
+    'total_teleop_undefended_success_cycle_time_median',
+    'avg_scrape_algae_count',
+    'avg_pickup_algae_count',
+    'algae_success_cycle_count_median',
+    'algae_success_cycle_count_max',
+    'net_success_undefended_cycle_time_median',
+    'algae_source_reef_percentage',
+    'algae_source_back_percentage',
+    'algae_source_mid_percentage',
+    'algae_source_front_percentage',
+    'net_place_percentage',
+    'net_shoot_percentage',
+    'net_place_success_rate',
+    'net_shoot_success_rate',
+    'tactical_max_single_match',
+    'last_second_processer_matches',
+    'coral_defended_percentage',
+    'coral_defended_max_single_match',
+    'defended_success_coral_cycle_time_max',
+    'defended_success_coral_cycle_time_median',
+    'undefended_success_coral_cycle_time_median',
+    'defended_vs_undefended_success_coral_cycle_time_increase_percentage'
+];
+
 // 统计项名称的中文映射
 const ATTRIBUTE_NAMES = {
     // 基本信息
@@ -397,6 +466,26 @@ const ATTRIBUTE_NAMES = {
 // 获取统计项的中文名称
 function getAttributeName(attribute) {
     return ATTRIBUTE_NAMES[attribute] || attribute;
+}
+
+// 根据预定义顺序对属性进行排序
+function sortAttributesByOrder(attributes) {
+    return attributes.sort((a, b) => {
+        const indexA = ATTRIBUTE_ORDER.indexOf(a);
+        const indexB = ATTRIBUTE_ORDER.indexOf(b);
+        
+        // 如果两个属性都在预定义顺序中，按顺序排序
+        if (indexA !== -1 && indexB !== -1) {
+            return indexA - indexB;
+        }
+        
+        // 如果只有一个在预定义顺序中，优先显示
+        if (indexA !== -1) return -1;
+        if (indexB !== -1) return 1;
+        
+        // 如果都不在预定义顺序中，按字母顺序排序
+        return a.localeCompare(b);
+    });
 }
 
 // 页面加载完成后的初始化

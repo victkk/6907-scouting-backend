@@ -129,7 +129,12 @@ function renderRankingAttributes() {
         attr.key.toLowerCase().includes(searchTerm)
     );
     
-    filteredAttributes.forEach(attr => {
+    // 根据预定义顺序对过滤后的属性进行排序
+    const sortedFilteredAttributes = sortAttributesByOrder(filteredAttributes.map(attr => attr.key)).map(key => 
+        filteredAttributes.find(attr => attr.key === key)
+    );
+    
+    sortedFilteredAttributes.forEach(attr => {
         const checkDiv = document.createElement('div');
         checkDiv.className = 'form-check';
         
@@ -271,7 +276,12 @@ function updateShortcutItemsContainer() {
     attributeContainer.className = 'overflow-auto';
     attributeContainer.style.maxHeight = '200px';
     
-    rankingAttributes.forEach(attr => {
+    // 根据预定义顺序对属性进行排序
+    const sortedAttributes = sortAttributesByOrder(rankingAttributes.map(attr => attr.key)).map(key => 
+        rankingAttributes.find(attr => attr.key === key)
+    );
+    
+    sortedAttributes.forEach(attr => {
         const checkDiv = document.createElement('div');
         checkDiv.className = 'form-check';
         
@@ -425,7 +435,12 @@ function updateEditShortcutItemsContainer() {
     attributeContainer.className = 'overflow-auto';
     attributeContainer.style.maxHeight = '200px';
     
-    rankingAttributes.forEach(attr => {
+    // 根据预定义顺序对属性进行排序
+    const sortedAttributes = sortAttributesByOrder(rankingAttributes.map(attr => attr.key)).map(key => 
+        rankingAttributes.find(attr => attr.key === key)
+    );
+    
+    sortedAttributes.forEach(attr => {
         const checkDiv = document.createElement('div');
         checkDiv.className = 'form-check';
         
@@ -610,7 +625,10 @@ function updateRankingTable() {
     rankHeader1.className = 'text-center';
     headerRow1.appendChild(rankHeader1);
     
-    Object.keys(rankingData).forEach(attrKey => {
+    // 根据预定义顺序对属性进行排序
+    const sortedAttrKeys = sortAttributesByOrder(Object.keys(rankingData));
+    
+    sortedAttrKeys.forEach(attrKey => {
         const attrData = rankingData[attrKey];
         
         const attrHeader1 = document.createElement('th');
@@ -649,7 +667,7 @@ function updateRankingTable() {
         
         row.appendChild(rankCell);
         
-        Object.keys(sortedData).forEach(attrKey => {
+        sortedAttrKeys.forEach(attrKey => {
             const attrData = sortedData[attrKey];
             const rankedData = attrData[rowIndex];
             
@@ -762,8 +780,11 @@ function generateRankingCSV() {
         }
     });
     
+    // 根据预定义顺序对属性进行排序
+    const sortedAttrKeys = sortAttributesByOrder(Object.keys(rankingData));
+    
     const headers1 = ['ranking'];
-    Object.keys(rankingData).forEach(attrKey => {
+    sortedAttrKeys.forEach(attrKey => {
         const attrData = rankingData[attrKey];
         headers1.push(attrData.name);
         headers1.push('');
@@ -771,7 +792,7 @@ function generateRankingCSV() {
     lines.push(headers1.join(','));
     
     const headers2 = ['ranking'];
-    Object.keys(rankingData).forEach(attrKey => {
+    sortedAttrKeys.forEach(attrKey => {
         const attrData = rankingData[attrKey];
         headers2.push(attrData.name);
         headers2.push('team');
@@ -783,7 +804,7 @@ function generateRankingCSV() {
         // 最左侧的rank列按照1、2、3、4的顺序显示
         const row = [rowIndex + 1];
         
-        Object.keys(sortedData).forEach(attrKey => {
+        sortedAttrKeys.forEach(attrKey => {
             const attrData = sortedData[attrKey];
             const rankedData = attrData[rowIndex];
             

@@ -375,8 +375,11 @@ function updateComparisonTable() {
         teamStatistics.some(team => team[key] !== null && team[key] !== undefined)
     );
     
+    // 根据预定义顺序对属性进行排序
+    const sortedAttributes = sortAttributesByOrder(attributes);
+    
     // 为每个属性创建行
-    attributes.forEach(attribute => {
+    sortedAttributes.forEach(attribute => {
         const row = createComparisonRow(attribute);
         if (row) {
             body.appendChild(row);
@@ -487,8 +490,9 @@ function generateCSV() {
     
     // 数据行
     const attributes = Object.keys(teamStatistics[0]).filter(key => key !== 'team_no');
+    const sortedAttributes = sortAttributesByOrder(attributes);
     
-    attributes.forEach(attribute => {
+    sortedAttributes.forEach(attribute => {
         const row = [getAttributeName(attribute)];
         
         teamStatistics.forEach(teamStat => {
