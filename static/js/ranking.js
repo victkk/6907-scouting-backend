@@ -567,10 +567,37 @@ function updateRankingTable() {
         return;
     }
 
-    let maxRankCount = 0;
-    Object.values(rankingData).forEach(attrData => {
-        if (attrData.data.length > maxRankCount) {
-            maxRankCount = attrData.data.length;
+    // 为每个属性创建排序后的数据
+    const sortedData = {};
+    const equalValueMap = {}; // 记录每个属性中相同值的队伍
+    
+    Object.keys(rankingData).forEach(attrKey => {
+        const attrData = rankingData[attrKey];
+        // 按排名排序，相同排名按队伍号排序
+        sortedData[attrKey] = attrData.data.sort((a, b) => {
+            if (a.rank !== b.rank) {
+                return a.rank - b.rank;
+            }
+            return a.team_no - b.team_no;
+        });
+        
+        // 检测相同值的队伍
+        equalValueMap[attrKey] = new Set();
+        for (let i = 0; i < sortedData[attrKey].length; i++) {
+            for (let j = i + 1; j < sortedData[attrKey].length; j++) {
+                if (sortedData[attrKey][i].value === sortedData[attrKey][j].value) {
+                    equalValueMap[attrKey].add(i);
+                    equalValueMap[attrKey].add(j);
+                }
+            }
+        }
+    });
+
+    // 计算最大行数（所有属性中最大的数据量）
+    let maxRowCount = 0;
+    Object.values(sortedData).forEach(data => {
+        if (data.length > maxRowCount) {
+            maxRowCount = data.length;
         }
     });
 
@@ -606,33 +633,47 @@ function updateRankingTable() {
     header.appendChild(headerRow1);
     header.appendChild(headerRow2);
     
-    for (let rank = 1; rank <= maxRankCount; rank++) {
+    // 为每一行创建数据
+    for (let rowIndex = 0; rowIndex < maxRowCount; rowIndex++) {
         const row = document.createElement('tr');
         
+        // 最左侧的rank列按照1、2、3、4的顺序显示
         const rankCell = document.createElement('td');
         rankCell.className = 'text-center fw-bold';
-        rankCell.textContent = rank;
+        rankCell.textContent = rowIndex + 1;
         
-        const rankClass = getRankClass(rank);
+        const rankClass = getRankClass(rowIndex + 1);
         if (rankClass) {
             rankCell.classList.add(rankClass);
         }
         
         row.appendChild(rankCell);
         
-        Object.keys(rankingData).forEach(attrKey => {
-            const attrData = rankingData[attrKey];
-            const rankedData = attrData.data.find(item => item.rank === rank);
+        Object.keys(sortedData).forEach(attrKey => {
+            const attrData = sortedData[attrKey];
+            const rankedData = attrData[rowIndex];
             
             const valueCell = document.createElement('td');
-            valueCell.className = 'text-center';
+            valueCell.className = 'text-center position-relative';
             
             const teamCell = document.createElement('td');
-            teamCell.className = 'text-center';
+            teamCell.className = 'text-center position-relative';
             
             if (rankedData) {
                 valueCell.textContent = formatValue(rankedData.value);
                 teamCell.textContent = rankedData.team_no;
+                
+                // 检查是否有相同值，如果有则添加等号标记
+                if (equalValueMap[attrKey] && equalValueMap[attrKey].has(rowIndex)) {
+                    const equalMark = document.createElement('span');
+                    equalMark.textContent = '=';
+                    equalMark.className = 'position-absolute top-0 end-0 badge bg-secondary';
+                    equalMark.style.fontSize = '0.6rem';
+                    equalMark.style.transform = 'translate(25%, -25%)';
+                    
+                    valueCell.appendChild(equalMark);
+                    teamCell.appendChild(equalMark.cloneNode(true));
+                }
                 
                 if (rankClass) {
                     valueCell.classList.add(rankClass);
@@ -687,10 +728,37 @@ function generateRankingCSV() {
     
     const lines = [];
     
-    let maxRankCount = 0;
-    Object.values(rankingData).forEach(attrData => {
-        if (attrData.data.length > maxRankCount) {
-            maxRankCount = attrData.data.length;
+    // 为每个属性创建排序后的数据（与表格显示逻辑保持一致）
+    const sortedData = {};
+    const equalValueMap = {}; // 记录每个属性中相同值的队伍
+    
+    Object.keys(rankingData).forEach(attrKey => {
+        const attrData = rankingData[attrKey];
+        // 按排名排序，相同排名按队伍号排序
+        sortedData[attrKey] = attrData.data.sort((a, b) => {
+            if (a.rank !== b.rank) {
+                return a.rank - b.rank;
+            }
+            return a.team_no - b.team_no;
+        });
+        
+        // 检测相同值的队伍
+        equalValueMap[attrKey] = new Set();
+        for (let i = 0; i < sortedData[attrKey].length; i++) {
+            for (let j = i + 1; j < sortedData[attrKey].length; j++) {
+                if (sortedData[attrKey][i].value === sortedData[attrKey][j].value) {
+                    equalValueMap[attrKey].add(i);
+                    equalValueMap[attrKey].add(j);
+                }
+            }
+        }
+    });
+    
+    // 计算最大行数
+    let maxRowCount = 0;
+    Object.values(sortedData).forEach(data => {
+        if (data.length > maxRowCount) {
+            maxRowCount = data.length;
         }
     });
     
@@ -710,18 +778,23 @@ function generateRankingCSV() {
     });
     lines.push(headers2.join(','));
     
-    for (let rank = 1; rank <= maxRankCount; rank++) {
-        const row = [rank];
+    // 为每一行创建数据
+    for (let rowIndex = 0; rowIndex < maxRowCount; rowIndex++) {
+        // 最左侧的rank列按照1、2、3、4的顺序显示
+        const row = [rowIndex + 1];
         
-        Object.keys(rankingData).forEach(attrKey => {
-            const attrData = rankingData[attrKey];
-            const rankedData = attrData.data.find(item => item.rank === rank);
+        Object.keys(sortedData).forEach(attrKey => {
+            const attrData = sortedData[attrKey];
+            const rankedData = attrData[rowIndex];
             
             if (rankedData) {
                 const value = formatValue(rankedData.value);
                 const team = rankedData.team_no;
-                row.push(value);
-                row.push(team);
+                
+                // 检查是否有相同值，如果有则在CSV中添加等号标记
+                const hasEqualValue = equalValueMap[attrKey] && equalValueMap[attrKey].has(rowIndex);
+                row.push(hasEqualValue ? `${value}(=)` : value);
+                row.push(hasEqualValue ? `${team}(=)` : team);
             } else {
                 row.push('-');
                 row.push('-');
