@@ -736,6 +736,7 @@ def _calculate_manual_algae_statistics(
 
     last_second_processor_matchnos = []
     last_second_processor_tournament_levels = []
+    max_processor_cnt = 0
     for match in matches:
         scrape_cnt.append(match.intake_algae.teleop_scrape_cnt)
         pickup_cnt.append(match.intake_algae.teleop_reef_cnt)
@@ -771,13 +772,22 @@ def _calculate_manual_algae_statistics(
         if match.score_algae.last_sec_processor_index & match.score_algae.success_index:
             last_second_processor_matchnos.append(match.match_no)
             last_second_processor_tournament_levels.append(match.tournament_level)
-
+        if len(match.score_algae.processor_index) > max_processor_cnt:
+            max_processor_cnt = len(match.score_algae.processor_index)
+            max_processor_matchnos = match.match_no
+            max_processor_tournament_levels = match.tournament_level
     # 展平嵌套列表
     net_success_undefended_cycle_times_flat = [
         time
         for match_times in net_success_undefended_cycle_times
         for time in match_times
     ]
+    team_stat.processor_success_max_single_match.value = max_processor_cnt
+    if max_processor_cnt > 0:
+        team_stat.processor_success_max_single_match.match_no = max_processor_matchnos
+        team_stat.processor_success_max_single_match.tournament_level = (
+            max_processor_tournament_levels
+        )
 
     team_stat.avg_scrape_algae_count.value = statistics.mean(scrape_cnt)
     team_stat.avg_pickup_algae_count.value = statistics.mean(pickup_cnt)
