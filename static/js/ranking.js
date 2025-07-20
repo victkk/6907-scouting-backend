@@ -539,21 +539,27 @@ async function refreshRanking() {
             return;
         }
         
-        const allRankingData = {};
+        // 构建单次请求的参数
+        const params = new URLSearchParams();
+        selectedAttributes.forEach(attr => params.append('attributes', attr.key));
+        selectedLevels.forEach(level => params.append('tournament_levels', level));
+        matchFilter.forEach(matchNo => params.append('match_nos', matchNo));
         
-        for (const attr of selectedAttributes) {
-            const params = new URLSearchParams();
-            params.append('attribute', attr.key);
-            selectedLevels.forEach(level => params.append('tournament_levels', level));
-            matchFilter.forEach(matchNo => params.append('match_nos', matchNo));
-            
-            const response = await apiRequest('/api/rankings?' + params.toString());
-            allRankingData[attr.key] = {
-                data: response.data,
-                name: attr.name,
-                type: attr.type
-            };
-        }
+        // 单次调用接口获取所有属性的排名数据
+        const response = await apiRequest('/api/rankings?' + params.toString());
+        
+        // 处理返回的数据，添加属性名称和类型信息
+        const allRankingData = {};
+        Object.keys(response.data).forEach(attrKey => {
+            const attr = selectedAttributes.find(attr => attr.key === attrKey);
+            if (attr) {
+                allRankingData[attrKey] = {
+                    data: response.data[attrKey],
+                    name: attr.name,
+                    type: attr.type
+                };
+            }
+        });
         
         rankingData = allRankingData;
         

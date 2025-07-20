@@ -494,7 +494,7 @@ def get_rankings():
     """获取排名数据"""
     try:
         # 获取查询参数
-        attribute = request.args.get("attribute")  # 排名属性
+        attributes = request.args.getlist("attributes")  # 排名属性列表
         tournament_levels = request.args.getlist("tournament_levels")  # 选择的比赛等级
         match_nos = request.args.getlist("match_nos")  # 选择的比赛场次
 
@@ -518,31 +518,39 @@ def get_rankings():
             match_stats, filter_matches
         )
 
-        # 提取排名数据
-        ranking_data = []
-        for team_stat in team_statistics:
-            team_dict = team_stat.to_dict()
-            if attribute and attribute in team_dict:
-                attr_data = team_dict[attribute]
-                if (
-                    isinstance(attr_data, dict)
-                    and "value" in attr_data
-                    and "rank" in attr_data
-                ):
-                    ranking_data.append(
-                        {
-                            "team_no": team_stat.team_no,
-                            "value": attr_data["value"],
-                            "rank": attr_data["rank"],
-                            "match_no": attr_data.get("match_no"),
-                            "tournament_level": attr_data.get("tournament_level"),
-                        }
-                    )
+        # 提取所有请求属性的排名数据
+        all_ranking_data = {}
 
-        # 按排名排序
-        ranking_data.sort(key=lambda x: x["rank"] if x["rank"] > 0 else float("inf"))
+        for attribute in attributes:
+            ranking_data = []
+            for team_stat in team_statistics:
+                team_dict = team_stat.to_dict()
+                if attribute in team_dict:
+                    attr_data = team_dict[attribute]
+                    if (
+                        isinstance(attr_data, dict)
+                        and "value" in attr_data
+                        and "rank" in attr_data
+                    ):
+                        ranking_data.append(
+                            {
+                                "team_no": team_stat.team_no,
+                                "value": attr_data["value"],
+                                "rank": attr_data["rank"],
+                                "match_no": attr_data.get("match_no"),
+                                "tournament_level": attr_data.get("tournament_level"),
+                            }
+                        )
 
-        return jsonify({"success": True, "data": ranking_data, "attribute": attribute})
+            # 按排名排序
+            ranking_data.sort(
+                key=lambda x: x["rank"] if x["rank"] > 0 else float("inf")
+            )
+            all_ranking_data[attribute] = ranking_data
+
+        return jsonify(
+            {"success": True, "data": all_ranking_data, "attributes": attributes}
+        )
 
     except Exception as e:
         logger.error(f"获取排名数据时出错: {str(e)}")
