@@ -965,7 +965,10 @@ def _calculate_all_rankings(team_statistics: List[TeamStatistics]) -> None:
     ranking_fields_dict = defaultdict(bool)
     ranking_fields_dict.update(
         {
-            "processor_success_max_single_match":True,
+            "coral_source_station_percentage": True,
+            "coral_source_ground_percentage": True,
+            "algae_success_cycle_count_max": True,
+            "processor_success_max_single_match": True,
             "cycle_teleop_coral_time_ratio": True,
             "cycle_teleop_algae_time_ratio": True,
             "cycle_teleop_defense_time_ratio": True,
