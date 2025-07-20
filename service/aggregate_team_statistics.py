@@ -137,10 +137,10 @@ def _calculate_climb_statistics(
                 climb_times.append(match.climb_up.duration)
             else:
                 climb_times.append(151)
-        elif match.climb_up.status == "fail":
+        elif match.climb_up.status == "failure":
             fail_match_nos.append(match.match_no)
             fail_tournament_levels.append(match.tournament_level)
-        elif match.climb_up.status == "touch_chain":
+        elif match.climb_up.status == "hit_chain":
             touch_chain_match_nos.append(match.match_no)
             touch_chain_tournament_levels.append(match.tournament_level)
 
@@ -304,7 +304,7 @@ def _calculate_bps_epa_ppg(
         ppg.append(points)
 
     team_stat.bps_value.value = (
-        total_branches / total_branch_time if total_branch_time > 0 else 0
+        total_branches / total_branch_time *100 if total_branch_time > 0 else 0
     )
     team_stat.epa_value.value = total_epas / len(matches)
     team_stat.ppg_avg.value = statistics.mean(ppg)
