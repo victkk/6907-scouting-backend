@@ -164,7 +164,7 @@ def _calculate_climb_statistics(
     if total_attempts > 0:
         team_stat.climb_success_percentage.value = (
             len(success_match_nos) / total_attempts
-        ) 
+        )
     else:
         team_stat.climb_success_percentage.value = 0.0
 
@@ -616,7 +616,7 @@ def _calculate_manual_coral_statistics(
     team_stat.l1_teleop_undefended_success_cycle_time_median.value = (
         statistics.median(l1_undefended_cycle_times_flat)
         if l1_undefended_cycle_times_flat
-        else 0
+        else 9999.0
     )
 
     team_stat.l2_teleop_success_count_avg.value = statistics.mean(l2_success_counts)
@@ -628,19 +628,19 @@ def _calculate_manual_coral_statistics(
     team_stat.l2_teleop_undefended_success_cycle_time_median.value = (
         statistics.median(l2_undefended_cycle_times_flat)
         if l2_undefended_cycle_times_flat
-        else 0
+        else 9999.0
     )
 
     team_stat.l3_teleop_success_count_avg.value = statistics.mean(l3_success_counts)
     team_stat.l3_teleop_success_percentage.value = (
         statistics.mean(l3_success_counts) / statistics.mean(l3_attempt_counts)
         if statistics.mean(l3_attempt_counts) > 0
-        else 0
+        else 0.0
     )
     team_stat.l3_teleop_undefended_success_cycle_time_median.value = (
         statistics.median(l3_undefended_cycle_times_flat)
         if l3_undefended_cycle_times_flat
-        else 0
+        else 9999.0
     )
 
     team_stat.l4_teleop_success_count_avg.value = statistics.mean(l4_success_counts)
@@ -652,7 +652,7 @@ def _calculate_manual_coral_statistics(
     team_stat.l4_teleop_undefended_success_cycle_time_median.value = (
         statistics.median(l4_undefended_cycle_times_flat)
         if l4_undefended_cycle_times_flat
-        else 0
+        else 9999.0
     )
 
     team_stat.stack_l1_teleop_success_count_avg.value = statistics.mean(
@@ -667,7 +667,7 @@ def _calculate_manual_coral_statistics(
     team_stat.stack_l1_teleop_undefended_success_cycle_time_median.value = (
         statistics.median(stack_l1_undefended_cycle_times_flat)
         if stack_l1_undefended_cycle_times_flat
-        else 0
+        else 9999.0
     )
 
     all_success_counts = [
@@ -695,15 +695,26 @@ def _calculate_manual_coral_statistics(
     team_stat.total_teleop_undefended_success_cycle_time_median.value = (
         statistics.median(all_undefended_cycle_times_flat)
         if all_undefended_cycle_times_flat
-        else 0
+        else 9999.0
     )
     team_stat.total_teleop_success_percentage.value = (
         statistics.mean(all_success_counts) / statistics.mean(all_attempt_counts)
         if statistics.mean(all_attempt_counts) > 0
         else 0
     )
-    team_stat.coral_source_ground_percentage = coral_source_ground_cnt/(coral_source_loading_station_cnt+coral_source_ground_cnt) if (coral_source_loading_station_cnt+coral_source_ground_cnt) else 0
-    team_stat.coral_source_station_percentage = coral_source_loading_station_cnt/(coral_source_loading_station_cnt+coral_source_ground_cnt) if (coral_source_loading_station_cnt+coral_source_ground_cnt) else 0
+    team_stat.coral_source_ground_percentage.value = (
+        coral_source_ground_cnt
+        / (coral_source_loading_station_cnt + coral_source_ground_cnt)
+        if (coral_source_loading_station_cnt + coral_source_ground_cnt)
+        else 0
+    )
+    team_stat.coral_source_station_percentage = (
+        coral_source_loading_station_cnt
+        / (coral_source_loading_station_cnt + coral_source_ground_cnt)
+        if (coral_source_loading_station_cnt + coral_source_ground_cnt)
+        else 0.0
+    )
+
 
 def _calculate_manual_algae_statistics(
     team_stat: TeamStatistics, matches: List[MatchStatistics]
@@ -811,7 +822,7 @@ def _calculate_manual_algae_statistics(
     team_stat.net_success_undefended_cycle_time_median.value = (
         statistics.median(net_success_undefended_cycle_times_flat)
         if net_success_undefended_cycle_times_flat
-        else 0.0
+        else 9999.0
     )
     team_stat.tactical_max_single_match.value = max(tactical_cnt)
     team_stat.tactical_max_single_match.match_no = matches[
@@ -826,7 +837,6 @@ def _calculate_manual_algae_statistics(
     )
 
 
-
 def _calculate_defense_resistance_statistics(
     team_stat: "TeamStatistics", matches: List["MatchStatistics"]
 ) -> None:
@@ -834,9 +844,9 @@ def _calculate_defense_resistance_statistics(
     total_successful_coral_cycles = 0
     defended_coral_cycles = 0
     undefended_coral_cycles = 0
-    
+
     # 更改：列表将存储 (时间, 比赛) 元组
-    defended_cycle_times_with_match = [] 
+    defended_cycle_times_with_match = []
     undefended_cycle_times = []
     defended_counts_by_match = []
 
@@ -867,8 +877,8 @@ def _calculate_defense_resistance_statistics(
 
     # 计算被防守百分比
     if total_successful_coral_cycles > 0:
-        team_stat.coral_defended_percentage.value = (
-            defended_coral_cycles / (defended_coral_cycles + undefended_coral_cycles)
+        team_stat.coral_defended_percentage.value = defended_coral_cycles / (
+            defended_coral_cycles + undefended_coral_cycles
         )
     else:
         team_stat.coral_defended_percentage.value = 0.0
@@ -879,7 +889,9 @@ def _calculate_defense_resistance_statistics(
         max_index = defended_counts_by_match.index(max_defended_count)
         team_stat.coral_defended_max_single_match.value = max_defended_count
         team_stat.coral_defended_max_single_match.match_no = matches[max_index].match_no
-        team_stat.coral_defended_max_single_match.tournament_level = matches[max_index].tournament_level
+        team_stat.coral_defended_max_single_match.tournament_level = matches[
+            max_index
+        ].tournament_level
     else:
         team_stat.coral_defended_max_single_match.value = 0.0
 
@@ -888,26 +900,30 @@ def _calculate_defense_resistance_statistics(
         # 使用 key 参数在元组列表中找到最大值
         max_time_tuple = max(defended_cycle_times_with_match, key=lambda item: item[0])
         match_with_max_time = max_time_tuple[1]
-        
+
         team_stat.defended_success_coral_cycle_time_max.value = max_time_tuple[0]
-        team_stat.defended_success_coral_cycle_time_max.match_no = match_with_max_time.match_no
-        team_stat.defended_success_coral_cycle_time_max.tournament_level = match_with_max_time.tournament_level
-        
+        team_stat.defended_success_coral_cycle_time_max.match_no = (
+            match_with_max_time.match_no
+        )
+        team_stat.defended_success_coral_cycle_time_max.tournament_level = (
+            match_with_max_time.tournament_level
+        )
+
         # 为了计算中位数，先提取所有时间值
         defended_times = [item[0] for item in defended_cycle_times_with_match]
         team_stat.defended_success_coral_cycle_time_median.value = statistics.median(
             defended_times
         )
     else:
-        team_stat.defended_success_coral_cycle_time_max.value = 0.0
-        team_stat.defended_success_coral_cycle_time_median.value = 0.0
+        team_stat.defended_success_coral_cycle_time_max.value = 9999.0
+        team_stat.defended_success_coral_cycle_time_median.value = 9999.0
 
     if undefended_cycle_times:
         team_stat.undefended_success_coral_cycle_time_median.value = statistics.median(
             undefended_cycle_times
         )
     else:
-        team_stat.undefended_success_coral_cycle_time_median.value = 0.0
+        team_stat.undefended_success_coral_cycle_time_median.value = 9999.0
 
     # 修复：计算被防守vs无防守的时间增加百分比
     if defended_cycle_times_with_match and undefended_cycle_times:
@@ -915,18 +931,22 @@ def _calculate_defense_resistance_statistics(
         defended_times = [item[0] for item in defended_cycle_times_with_match]
         defended_median = statistics.median(defended_times)
         undefended_median = statistics.median(undefended_cycle_times)
-        
+
         if undefended_median > 0:
             increase_percentage = (
                 defended_median - undefended_median
             ) / undefended_median
             team_stat.defended_vs_undefended_success_coral_cycle_time_increase_percentage.value = (
-                increase_percentage 
+                increase_percentage
             )
         else:
-            team_stat.defended_vs_undefended_success_coral_cycle_time_increase_percentage.value = 0.0
+            team_stat.defended_vs_undefended_success_coral_cycle_time_increase_percentage.value = (
+                0.0
+            )
     else:
-        team_stat.defended_vs_undefended_success_coral_cycle_time_increase_percentage.value = 0.0
+        team_stat.defended_vs_undefended_success_coral_cycle_time_increase_percentage.value = (
+            0.0
+        )
 
 
 def _calculate_all_rankings(team_statistics: List[TeamStatistics]) -> None:
@@ -946,6 +966,10 @@ def _calculate_all_rankings(team_statistics: List[TeamStatistics]) -> None:
             "auto_line_cross_percentage": True,
             "auto_high_mid_coral_success_rate": True,
             "auto_low_slot_coral_success_rate": True,
+            "auto_high_mid_coral_max": True,
+            "auto_low_slot_coral_max": True,
+            "auto_net_place_max": True,
+            "auto_algae_process_max": True,
             "l1_teleop_success_count_avg": True,
             "l1_teleop_success_percentage": True,
             "l1_teleop_undefended_success_cycle_time_median": False,
