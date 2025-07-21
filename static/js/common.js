@@ -177,7 +177,7 @@ function generateTournamentLevelCheckboxes(levels, containerId) {
         checkbox.type = 'checkbox';
         checkbox.id = `level-${level}`;
         checkbox.value = level;
-        checkbox.checked = true; // 默认选中所有等级
+        checkbox.checked = level !== 'Practice'; // Practice比赛等级默认不勾选
         
         const label = document.createElement('label');
         label.className = 'form-check-label';
