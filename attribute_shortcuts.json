@@ -1,10 +1,4 @@
 {
-  "核心指标": [
-    "bps_value",
-    "epa_value",
-    "ppg_avg",
-    "ppg_max_single_match"
-  ],
   "自动阶段": [
     "auto_line_cross_percentage",
     "auto_preload_coral_percentage",
@@ -46,10 +40,19 @@
     "algae_source_reef_percentage"
   ],
   "L4": [
+    "auto_high_mid_coral_max",
+    "auto_high_mid_coral_success_rate",
     "l4_teleop_success_count_avg",
     "l4_teleop_success_percentage",
-    "l4_teleop_undefended_success_cycle_time_median",
-    "total_teleop_success_count_avg",
-    "total_teleop_success_percentage"
+    "l4_teleop_undefended_success_cycle_time_median"
+  ],
+  "L4+爬升": [
+    "climb_success_percentage",
+    "climb_success_cycle_time_min",
+    "auto_high_mid_coral_max",
+    "auto_high_mid_coral_success_rate",
+    "l4_teleop_success_count_avg",
+    "l4_teleop_success_percentage",
+    "l4_teleop_undefended_success_cycle_time_median"
   ]
 }
