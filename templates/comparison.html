@@ -130,8 +130,14 @@ endblock %} {% block content %}
         </div>
 
         <!-- 比较结果表格 -->
-        <div class="table-responsive">
-          <table class="table table-striped table-hover" id="comparison-table">
+        <div
+          class="table-responsive"
+          style="max-height: 70vh; overflow-y: auto"
+        >
+          <table
+            class="table table-striped table-hover table-fixed-header"
+            id="comparison-table"
+          >
             <thead class="table-dark">
               <tr id="table-header">
                 <th>统计项</th>

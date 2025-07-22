@@ -1,5 +1,24 @@
 // 队伍比较页面功能
 
+// 添加悬浮表头样式
+// comparison.js (修正后)
+
+// 添加悬浮表头样式
+const style = document.createElement('style');
+style.textContent = `
+  .table-fixed-header thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1; /* z-index 不需要设得非常高，1 通常就足够了 */
+    /* background-color 和 color 会由 Bootstrap 的 .table-dark 类处理，
+       但为了确保覆盖，这里的声明是可靠的 */
+    background-color: #212529;
+    color: white;
+  }
+`;
+document.head.appendChild(style);
+
+
 let teamStatistics = [];
 let availableTeams = [];
 let availableLevels = [];
