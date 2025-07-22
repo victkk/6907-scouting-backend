@@ -1,17 +1,12 @@
 // 队伍比较页面功能
 
-// 添加悬浮表头样式
-// comparison.js (修正后)
-
-// 添加悬浮表头样式
+// 添加悬浮表头样式 (已修复)
 const style = document.createElement('style');
 style.textContent = `
   .table-fixed-header thead th {
     position: sticky;
     top: 0;
-    z-index: 1; /* z-index 不需要设得非常高，1 通常就足够了 */
-    /* background-color 和 color 会由 Bootstrap 的 .table-dark 类处理，
-       但为了确保覆盖，这里的声明是可靠的 */
+    z-index: 1;
     background-color: #212529;
     color: white;
   }
@@ -61,15 +56,12 @@ async function initializePage() {
     }
 }
 
-// 初始化队伍快捷方式
+// 初始化队伍快捷方式 (已更新为支持多选)
 function initializeTeamShortcuts() {
     const select = document.getElementById('team-shortcuts');
-    const editBtn = document.getElementById('edit-team-shortcut');
-    const deleteBtn = document.getElementById('delete-team-shortcut');
-    
     if (!select) return;
     
-    select.innerHTML = '<option value="">选择快捷方式...</option>';
+    select.innerHTML = ''; // 直接清空，多选框不需要提示选项
     
     Object.keys(teamShortcuts).forEach(shortcutName => {
         const option = document.createElement('option');
@@ -82,16 +74,17 @@ function initializeTeamShortcuts() {
     updateShortcutButtons();
 }
 
-// 更新快捷组管理按钮状态
+// 更新快捷组管理按钮状态 (已更新为支持多选)
 function updateShortcutButtons() {
     const select = document.getElementById('team-shortcuts');
     const editBtn = document.getElementById('edit-team-shortcut');
     const deleteBtn = document.getElementById('delete-team-shortcut');
     
     if (select && editBtn && deleteBtn) {
-        const hasSelection = select.value !== '';
-        editBtn.disabled = !hasSelection;
-        deleteBtn.disabled = !hasSelection;
+        // 仅当选中项数量为 1 时，才启用编辑和删除按钮
+        const isSingleSelection = select.selectedOptions.length === 1;
+        editBtn.disabled = !isSingleSelection;
+        deleteBtn.disabled = !isSingleSelection;
     }
 }
 
@@ -163,25 +156,42 @@ function initializeTournamentLevelCheckboxes() {
     generateTournamentLevelCheckboxes(availableLevels, 'tournament-level-checkboxes');
 }
 
-// 初始化事件监听器
+// 初始化事件监听器 (已更新为支持多选)
 function initializeEventListeners() {
     // 快捷方式选择
     const shortcutSelect = document.getElementById('team-shortcuts');
     if (shortcutSelect) {
         shortcutSelect.addEventListener('change', function() {
-            if (this.value && teamShortcuts[this.value]) {
-                currentTeamOrder = [...teamShortcuts[this.value]]; // 设置当前队伍顺序
-                renderTeamCheckboxes(); // 重新渲染复选框
-                setSelectedTeams(teamShortcuts[this.value]); // 勾选快捷方式内的所有队伍
+            // 1. 获取所有被选中的快捷组名称
+            const selectedShortcutNames = Array.from(this.selectedOptions).map(opt => opt.value);
+
+            // 2. 合并所有选中快捷组的队伍，并去重
+            const combinedTeams = new Set();
+            selectedShortcutNames.forEach(name => {
+                if (teamShortcuts[name]) {
+                    teamShortcuts[name].forEach(team => combinedTeams.add(team));
+                }
+            });
+
+            // 3. 将 Set 转换为排序后的数组
+            const finalTeamList = Array.from(combinedTeams).sort((a, b) => a - b);
+            
+            if (finalTeamList.length > 0) {
+                currentTeamOrder = finalTeamList;
+                renderTeamCheckboxes(); 
+                setSelectedTeams(finalTeamList);
             } else {
-                currentTeamOrder = null; // 无选择时重置
-                // 清除所有队伍的勾选状态
+                // 如果没有选择任何快捷组
+                currentTeamOrder = null; 
+                // 清除所有勾选
                 document.querySelectorAll('#team-checkboxes input[type="checkbox"]').forEach(cb => {
                     cb.checked = false;
                 });
-                renderTeamCheckboxes(); // 重新渲染复选框
+                renderTeamCheckboxes();
             }
-            updateShortcutButtons(); // 更新按钮状态
+            
+            // 4. 更新按钮状态
+            updateShortcutButtons();
         });
     }
     
@@ -217,8 +227,6 @@ function initializeEventListeners() {
         updateShortcutBtn.addEventListener('click', updateShortcut);
     }
     
-
-
     // 编辑快捷组按钮
     const editShortcutBtn = document.getElementById('edit-team-shortcut');
     if (editShortcutBtn) {
@@ -576,10 +584,11 @@ document.addEventListener('DOMContentLoaded', function() {
 // 编辑快捷组
 function editShortcut() {
     const select = document.getElementById('team-shortcuts');
-    const selectedShortcut = select.value;
+    // 从 selectedOptions 获取值，因为现在是多选
+    const selectedShortcut = select.selectedOptions.length === 1 ? select.selectedOptions[0].value : null;
     
     if (!selectedShortcut || !teamShortcuts[selectedShortcut]) {
-        showError('请先选择要编辑的快捷组');
+        showError('请先只选择一个要编辑的快捷组');
         return;
     }
     
@@ -613,10 +622,10 @@ function editShortcut() {
 // 删除快捷组
 async function deleteShortcut() {
     const select = document.getElementById('team-shortcuts');
-    const selectedShortcut = select.value;
-    
+    const selectedShortcut = select.selectedOptions.length === 1 ? select.selectedOptions[0].value : null;
+
     if (!selectedShortcut) {
-        showError('请先选择要删除的快捷组');
+        showError('请先只选择一个要删除的快捷组');
         return;
     }
     
@@ -735,9 +744,13 @@ async function updateShortcut() {
             initializeTeamShortcuts();
             
             // 选中刚更新的快捷组
-            document.getElementById('team-shortcuts').value = name;
-            updateShortcutButtons();
-            setSelectedTeams(teamShortcuts[name]);
+            // In multi-select mode, we can't just set .value. We find the option and set its .selected property.
+            const select = document.getElementById('team-shortcuts');
+            Array.from(select.options).forEach(opt => {
+                opt.selected = opt.value === name;
+            });
+            select.dispatchEvent(new Event('change')); // Manually trigger change to update everything
+            
             // 关闭模态框
             const modal = bootstrap.Modal.getInstance(document.getElementById('editShortcutModal'));
             modal.hide();
@@ -752,4 +765,4 @@ async function updateShortcut() {
     } catch (error) {
         showError('修改快捷组失败: ' + error.message);
     }
-} 
+}
