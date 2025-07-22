@@ -5,6 +5,7 @@ let availableTeams = [];
 let availableLevels = [];
 let teamShortcuts = {};
 let currentEditingShortcut = null; // 当前正在编辑的快捷组
+let currentTeamOrder = null; // 当前队伍显示顺序（如有快捷方式选择）
 
 // 页面加载时初始化
 document.addEventListener('DOMContentLoaded', function() {
@@ -90,7 +91,8 @@ function renderTeamCheckboxes() {
     const searchTerm = document.getElementById('team-search').value.toLowerCase();
     
     // 过滤队伍
-    const filteredTeams = availableTeams.filter(team =>
+    let baseTeams = currentTeamOrder ? [...currentTeamOrder] : [...availableTeams];
+    const filteredTeams = baseTeams.filter(team =>
         team.toString().includes(searchTerm)
     );
     
@@ -150,7 +152,11 @@ function initializeEventListeners() {
         shortcutSelect.addEventListener('change', function() {
             if (this.value && teamShortcuts[this.value]) {
                 setSelectedTeams(teamShortcuts[this.value]);
+                currentTeamOrder = [...teamShortcuts[this.value]]; // 设置当前队伍顺序
+            } else {
+                currentTeamOrder = null; // 无选择时重置
             }
+            renderTeamCheckboxes(); // 重新渲染复选框
             updateShortcutButtons(); // 更新按钮状态
         });
     }
