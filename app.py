@@ -288,10 +288,12 @@ def get_team_statistics():
         )
         # 过滤掉不需要的队伍
         if teams:
+            # 保持顺序：先构建 team_no->stat 映射，再按 teams 顺序输出
+            team_stat_map = {
+                str(team_stat.team_no): team_stat for team_stat in team_statistics
+            }
             team_statistics = [
-                team_stat
-                for team_stat in team_statistics
-                if str(team_stat.team_no) in teams
+                team_stat_map[team_no] for team_no in teams if team_no in team_stat_map
             ]
         # 转换为字典格式
         result = []
