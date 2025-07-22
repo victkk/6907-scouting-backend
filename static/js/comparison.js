@@ -151,12 +151,17 @@ function initializeEventListeners() {
     if (shortcutSelect) {
         shortcutSelect.addEventListener('change', function() {
             if (this.value && teamShortcuts[this.value]) {
-                setSelectedTeams(teamShortcuts[this.value]);
                 currentTeamOrder = [...teamShortcuts[this.value]]; // 设置当前队伍顺序
+                renderTeamCheckboxes(); // 重新渲染复选框
+                setSelectedTeams(teamShortcuts[this.value]); // 勾选快捷方式内的所有队伍
             } else {
                 currentTeamOrder = null; // 无选择时重置
+                // 清除所有队伍的勾选状态
+                document.querySelectorAll('#team-checkboxes input[type="checkbox"]').forEach(cb => {
+                    cb.checked = false;
+                });
+                renderTeamCheckboxes(); // 重新渲染复选框
             }
-            renderTeamCheckboxes(); // 重新渲染复选框
             updateShortcutButtons(); // 更新按钮状态
         });
     }
